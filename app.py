@@ -13,7 +13,7 @@ def is_logged_out(f):
     @wraps(f)
     def wrap(*args,**kwargs):
         if 'is_logged' in session:
-            return redirect(url_for('/'))
+            return redirect(url_for('login'))
         else:
             return f(*args , **kwargs)
     return wrap
@@ -23,9 +23,11 @@ def is_logged_in(f):
     def _wraper(*args, **kwargs):
         if 'is_logged' in session:
         # if session['is_logged']:
+            print("logged in")
             return f(*args,**kwargs)
         else :
             flash('UnAuthorized,Please login','danger')
+            print("not logged in")
             return redirect(url_for('login'))
 
     return _wraper
@@ -88,6 +90,7 @@ def login():
             return redirect(url_for('login'))
         else:
             if pbkdf2_sha256.verify(pw,users[2] ):
+                session['is_logged'] = True
                 session['email'] = users[1]
                 return redirect('/')
             else:
@@ -99,7 +102,6 @@ def login():
     db.close()
 
 @app.route('/logout',methods = ['GET'])
-@is_logged_in
 @is_logged_in
 def logout():
     session.clear()
