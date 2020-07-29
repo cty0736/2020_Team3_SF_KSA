@@ -5,12 +5,8 @@
 {% block body %}
 <!DOCTYPE html>
 <html lang="en">
-
-
-    <form class="px-4 py-3">
-
-    <form method = 'POST' action="/register"onsubmit = "return confirm('회원가입 하시겠습니까?')">
-    <div class="login-title">
+    <form class="px-4 py-3"method = 'POST' action="/register"onsubmit = "return confirm('회원가입 하시겠습니까?')">
+        <div class="login-title">
         <br>
         <h2 class="text-center text-success">Register Page</h2><br><br>
     </div>
@@ -26,10 +22,10 @@
         <label for="exampleDropdownFormPassword1">Re_Password</label>
         <input name="re_password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Re_Password">
       </div>
-      <button type="submit" class="btn btn-success btn-lg btn-block">Register</button>
+      <input type="submit" class="btn btn-success btn-lg btn-block" value="Sign up">
+    
     </form>
     </form>
-  </div>
   
   </html>
   {% endblock %}

@@ -9,6 +9,29 @@ app.debug=True
 db = pymysql.connect(host = 'localhost', port = 3306, user = 'root', passwd='1234',db = 'myflaskapp')
 cursor = db.cursor()
 
+def is_logged_out(f):
+    @wraps(f)
+    def wrap(*args,**kwargs):
+        if 'is_logged' in session:
+            return redirect(url_for('/'))
+        else:
+            return f(*args , **kwargs)
+    return wrap
+
+def is_logged_in(f):
+    @wraps(f)
+    def _wraper(*args, **kwargs):
+        if 'is_logged' in session:
+        # if session['is_logged']:
+            return f(*args,**kwargs)
+        else :
+            flash('UnAuthorized,Please login','danger')
+            return redirect(url_for('login'))
+
+    return _wraper
+
+
+
 @app.route('/')
 def index():
     print("Success")
@@ -18,6 +41,7 @@ def index():
 
 
 @app.route("/register",methods=['GET','Post'])
+@is_logged_out
 def register():
     if request.method == 'POST':
         # data = request.body.get('author')
@@ -49,6 +73,7 @@ def register():
     db.close()
 
 @app.route("/login",methods = ['GET','POST'])
+@is_logged_out
 def login():
     if request.method == 'POST':
         id = request.form.get('email')
@@ -73,13 +98,23 @@ def login():
         return render_template('login.html')
     db.close()
 
+@app.route('/logout',methods = ['GET'])
+@is_logged_in
+@is_logged_in
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
+
 @app.route("/data")
+@is_logged_in
 def data():
     sql = 'SELECT * FROM team3_data_1;'
     cursor.execute(sql)
     data = cursor.fetchall()
     # return "get success"
     return render_template("data.html", data = data)
+
+
 
 
 if __name__ =='__main__':
