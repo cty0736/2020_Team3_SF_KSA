@@ -1,31 +1,70 @@
-{% extends "layouts.html" %}
-<head>
-    <div class="dropdown-menu">
-    </head>
-{% block body %}
-<!DOCTYPE html>
-<html lang="en">
-    <form class="px-4 py-3"method = 'POST' action="/register"onsubmit = "return confirm('회원가입 하시겠습니까?')">
-        <div class="login-title">
-        <br>
-        <h2 class="text-center text-success">Register Page</h2><br><br>
-    </div>
-      <div class="form-group">
-        <label for="exampleDropdownFormEmail1">Email address</label>
-        <input name="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
-      </div>
-      <div class="form-group">
-        <label for="exampleDropdownFormPassword1">Password</label>
-        <input name="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
-      </div>
-      <div class="form-group">
-        <label for="exampleDropdownFormPassword1">Re_Password</label>
-        <input name="re_password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Re_Password">
-      </div>
-      <input type="submit" class="btn btn-success btn-lg btn-block" value="Sign up">
-    
-    </form>
-    </form>
-  
-  </html>
-  {% endblock %}
+<!DOCTYPE HTML>
+<html>
+	
+	<head>
+		<title>Elements - Projection by TEMPLATED</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{{url_for('static',filename='assets/css/main.css')}}" />
+	</head>
+	<body class="subpage">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="/index" class="logo"><strong>Projection</strong> by TEMPLATED</a>
+					<nav id="nav">
+						<a href="/index">Home</a>
+						<a href="/data">Data</a>
+                        {% if session['is_logged'] %}
+                        <a href="/logout">Log Out</a>
+                        {% else %}
+                        <a href="/register">Register</a>
+                        {% endif %}
+					</nav>
+					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+				</div>
+			</header>
+			<footer id="footer" >
+				<div class="inner">
+
+					<h3>Register</h3>
+
+					<form method="POST" action="/register">
+
+
+						
+						<div class="field half">
+							<label for="email">E-mail</label>
+							<input name="email" type="email" placeholder="email@example.com">
+						</div>
+						<br>
+						<div class="field half">
+							<label for="Password">Password</label>
+							<input name="password" type="password" class="form-control"  placeholder="Password">
+						</div>
+						<br>
+						<div class="field half">
+							<label for="Re-Password">Re-Password</label>
+							<input name="re_password" type="password" class="form-control"  placeholder="Re_Password">
+						</div>
+						<ul class="actions">
+							<li><input type="submit" value="Register" class="button alt" ></li>
+						</ul>
+						
+					</form>
+
+					<div class="copyright">
+						&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
+					</div>
+
+				</div>
+			</footer>
+		<!-- Scripts -->
+			<script src="{{url_for('static',filename='assets/js/jquery.min.js')}}"></script>
+			<script src="{{url_for('static',filename='assets/js/skel.min.js')}}"></script>
+			<script src="{{url_for('static',filename='assets/js/util.js')}}"></script>
+			<script src="{{url_for('static',filename='assets/js/main.js')}}"></script>
+
+	</body>
+</html>

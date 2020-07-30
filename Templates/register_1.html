@@ -1,0 +1,31 @@
+{% extends "layouts.html" %}
+<head>
+    <div class="dropdown-menu">
+    </head>
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+    <form class="px-4 py-3"method = 'POST' action="/register"onsubmit = "return confirm('회원가입 하시겠습니까?')">
+        <div class="login-title">
+        <br>
+        <h2 class="text-center text-success">Register Page</h2><br><br>
+    </div>
+      <div class="form-group">
+        <label for="exampleDropdownFormEmail1">Email address</label>
+        <input name="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+      </div>
+      <div class="form-group">
+        <label for="exampleDropdownFormPassword1">Password</label>
+        <input name="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
+      </div>
+      <div class="form-group">
+        <label for="exampleDropdownFormPassword1">Re_Password</label>
+        <input name="re_password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Re_Password">
+      </div>
+      <input type="submit" class="btn btn-success btn-lg btn-block" value="Sign up">
+    
+    </form>
+    </form>
+  
+  </html>
+  {% endblock %}

@@ -1,63 +1,74 @@
-{% extends "layouts.html" %}
-{% block body %}
+<!DOCTYPE HTML>
+<!--
+	Projection by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Elements - Projection by TEMPLATED</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{{url_for('static',filename='assets/css/main.css')}}" />
+	</head>
+	<body class="subpage">
 
-<div class="jumbotron text-center">
-  <div class="login-title">
-    <br>
-    <h1 class="text-center text-success">Data Page</h1><br><br>
-</div>
-    <hr class="my-4">
+        <!-- Header -->
+        <header id="header">
+            <div class="inner">
+                <a href="/index" class="logo"><strong>Projection</strong> by TEMPLATED</a>
+                <nav id="nav">
+                    <a href="/index">Home</a>
+                    <a href="/data">Data</a>
+                    {% if session['is_logged'] %}
+                    <a href="/logout">Log Out</a>
+                    {% else %}
+                    <a href="/register">Register</a>
+                    {% endif %}
 
-          <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table mr-1"></i>
-            DATA LIST
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
+                </nav>
+                <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+            </div>
+        </header>
+
+        <!-- Main -->
+        <section id="main" class="wrapper">
+            <div class="inner">
+                <header class="align-center">
+                    <h2>DATA</h2>
+                </header>
+			<div class="table-wrapper">
+				<table class="alt">
+					<thead>
+						<tr>
+							<th>ID</th>
                             <th>Sensor</th>
                             <th>Temp</th>
                             <th>X</th>
                             <th>Y</th>
                             <th>Z</th>
                             <th>ALERT</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                      <tr>
-                        <th>ID</th>
-                        <th>Sensor</th>
-                        <th>Temp</th>
-                        <th>X</th>
-                        <th>Y</th>
-                        <th>Z</th>
-                        <th>ALERT</th>
-                      </tr>
-                  </tfoot>
-                  <tbody>
-                    {% for data in data %}
-                      <tr>
-                        <th scope="row">{{ data[0] }}</th>
-                        <td>{{ data[1] }}</td>
-                        <td>{{ data[2] }}</td>
-                        <td>{{ data[3] }}</td>
-                        <td>{{ data[4] }}</td>
-                        <td>{{ data[5] }}</td>
-                        <td>{{ data[6] }}</td>
+						</tr>
+					</thead>
+					<tbody>
+                        {% for data in data %}
+                          <tr>
+                            <td>{{ data[0] }}</td>
+                            <td>{{ data[1] }}</td>
+                            <td>{{ data[2] }}</td>
+                            <td>{{ data[3] }}</td>
+                            <td>{{ data[4] }}</td>
+                            <td>{{ data[5] }}</td>
+                            <td>{{ data[6] }}</td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+					
+				</table>
+			</div>
 
-                        <td><form action="submit" method="POST" onsubmit="return confirm('정말 삭제하시겠습니까?')"><button type="submit" class="btn btn-danger">DELET</button></form></td>
-                      </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
-            </div>
-          </div>
-          </div>
-    </div>
-                                   
-{% endblock %}
+							</div>
+							<div class="6u$ 12u$(medium)">
 
+	</body>
+</html>

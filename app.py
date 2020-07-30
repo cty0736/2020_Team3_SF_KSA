@@ -32,13 +32,18 @@ def is_logged_in(f):
 
     return _wraper
 
-
-
-@app.route('/')
+@app.route('/index')
 def index():
     print("Success")
     # return "TEST"
-    return render_template('home.html')
+    return render_template('index.html')
+
+
+@app.route('/')
+def home():
+    print("Success")
+    # return "TEST"
+    return redirect('/index')
 
 
 
@@ -69,7 +74,7 @@ def register():
                 db.commit()
                 # cursor.execute('SELECT * FROM users;')
                 # users = cursor.fetchall()
-                return redirect(url_for('login'))
+                return render_template('login.html')
     else :
         return render_template('register.html')
     db.close()
@@ -92,7 +97,7 @@ def login():
             if pbkdf2_sha256.verify(pw,users[2] ):
                 session['is_logged'] = True
                 session['email'] = users[1]
-                return redirect('/')
+                return redirect(url_for('index'))
             else:
                 return redirect(url_for('login'))
         
