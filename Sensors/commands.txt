@@ -1,0 +1,3 @@
+mosquitto_pub -d -t temp -m "message"
+
+mosquitto -v
