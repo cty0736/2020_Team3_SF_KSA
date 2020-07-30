@@ -2,7 +2,7 @@ from flask import Flask, render_template,flash,redirect,url_for,session,request,
 from passlib.hash import pbkdf2_sha256
 import pymysql
 from functools import wraps
-
+import plot
 app = Flask(__name__)
 app.debug=True
 
@@ -121,9 +121,15 @@ def data():
     # return "get success"
     return render_template("data.html", data = data)
 
-
-
-
+@app.route("/tracking")
+@is_logged_in
+def trak():
+    sql = 'SELECT * FROM team3_data_1;'
+    cursor.execute(sql)
+    x = 10
+    y = 30
+    plot.scatterchar(x,y)
+    return redirect(request)
 if __name__ =='__main__':
     # app.run(host='0.0.0.0', port='8080')
     app.secret_key = 'secretkey123456789'  # app.run(host = "0.0.0.0", port = "8080")
