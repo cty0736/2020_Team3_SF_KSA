@@ -129,7 +129,7 @@ def trak():
     x = 10
     y = 30
     plot.scatterchar(x,y)
-    return redirect(request)
+    return redirect(url_for("index"))
 if __name__ =='__main__':
     # app.run(host='0.0.0.0', port='8080')
     app.secret_key = 'secretkey123456789'  # app.run(host = "0.0.0.0", port = "8080")
