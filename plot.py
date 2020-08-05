@@ -35,6 +35,3 @@ def scatterchar(x,y):
     data = [center,base,trace]
     return (plotly.offline.plot(data, filename='basic-scatter'))
 # Plot and embed in ipython notebook!
-
-
-scatterchar(10,30)

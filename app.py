@@ -2,6 +2,7 @@ from flask import Flask, render_template,flash,redirect,url_for,session,request,
 from passlib.hash import pbkdf2_sha256
 import pymysql
 from functools import wraps
+from werkzeug.utils import secure_filename
 import plot
 app = Flask(__name__)
 app.debug=True
@@ -121,14 +122,35 @@ def data():
     # return "get success"
     return render_template("data.html", data = data)
 
+
+@app.route('/add_data',methods=['GET','POST'])  # GET 형식과 POST 형식 둘 다 적용되게 함
+@is_logged_in
+def add_articles():
+    if request.method == 'POST':
+        username = request.form['username']
+        title = request.form['title']
+        image = request.files['image']
+        image.save("./images/" + secure_filename(image.filename))
+        contents = request.form['contents']
+        sql = ''' INSERT INTO team3_data_1(username,title,contents) 
+                   VALUES(%s,%s,%s);
+                  '''
+        cursor.execute(sql,(username,title,contents))
+        db.commit()
+        return redirect('/data')
+    else :
+        return render_template('add_data.html')
+    db.close()
+
+
 @app.route("/tracking")
 @is_logged_in
 def trak():
-    sql = 'SELECT * FROM team3_data_1;'
+    sql = 'SELECT x,y FROM team3_data_1;'
     cursor.execute(sql)
-    x = 10
-    y = 30
-    plot.scatterchar(x,y)
+    data = cursor.fetchone()
+    print(data)
+    plot.scatterchar(data[0],data[1])
     return redirect(url_for("index"))
 if __name__ =='__main__':
     # app.run(host='0.0.0.0', port='8080')
