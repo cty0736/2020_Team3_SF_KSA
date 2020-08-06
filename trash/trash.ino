@@ -1,13 +1,15 @@
 #define trig 8
 #define echo 9
+#define spin 10
+#include <Servo.h>
+Servo sServo;
 
 void setup(){
   Serial.begin(9600);
-  pinMode(13,OUTPUT);
+  sServo.attach(spin);
+
   pinMode(trig,OUTPUT);
   pinMode(echo,INPUT);
-  
-  
 }
 
 void loop(){
@@ -23,17 +25,10 @@ void loop(){
   distance = duration*170.15/1000;
   Serial.print("length : ");
   Serial.println(distance);
-  
-  int sensorValue = analogRead(A0);  
-  if(sensorValue > 200){
-    if(distance < 100){
-      digitalWrite(13,HIGH);
+  if(distance < 100){
+      sServo.write(90);
       delay(2000);
-      } else{
-        digitalWrite(13,LOW);
+    } else{
+        sServo.write(0);
     }
-  }else{
-    digitalWrite(13,LOW);
-  }
-  Serial.println(sensorValue);
 }
